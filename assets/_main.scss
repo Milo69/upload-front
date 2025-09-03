@@ -1,0 +1,463 @@
+@use "font-import";
+
+
+/* ==========================================================================
+  LES VARIABLES
+  ========================================================================== */
+
+
+:root {
+
+  --border-width: 0.05rem;
+
+  // les couleurs //
+  --color-black: #000000;
+  --color-white: #ffffff;
+  --color-pink: #F94BE4;
+
+
+  // les typos //
+  --font-NewEdge: 'NewEdge', sans-serif;
+  --font-Inter: 'InterDisplay', sans-serif;
+
+
+  // Tailles d'espacement
+  --space-xxs: 0.05rem;
+  --space-xs: 0.25rem;
+  --space-s: 0.5rem;
+  --space-m: 1rem;
+  --space-l: 1.5rem;
+  --space-xl: 2rem;
+  --space-xxl: 4rem;
+  --space-xxxl: 6rem;
+
+
+  // Border-radius
+  --radius-s: 1rem;
+  --radius-m: 2rem;
+  --radius-l: 3rem;
+  --radius-full: 9999px;
+
+
+  // Largeurs max
+  --container-width: min(100%, 1800px);
+}
+
+
+/* ==========================================================================
+  GLOBAL FONTS + HTML BASE
+  ========================================================================== */
+
+
+html {
+  font-family: var(--font-Inter);
+  font-optical-sizing: auto;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 20px;
+  font-weight: 500;
+  scroll-behavior: smooth;
+}
+
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: var(--color-pink);
+}
+
+
+a {
+  color: inherit;
+  cursor: pointer;
+}
+
+
+
+
+/* ==========================================================================
+  @font-face IMPORTS — pour NewEdge
+  ========================================================================== */
+
+
+@font-face {
+  font-family: var(--font-NewEdge);
+  src: url('/fonts/NewEdge666Test-RegularRounded.otf') format('opentype');
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+@font-face {
+  font-family: var(--font-NewEdge);
+  src: url('/fonts/NewEdge666Test-SemiboldRounded.otf') format('opentype');
+  font-weight: 600;
+  font-style: normal;
+}
+
+
+
+
+/* ==========================================================================
+  TYPOGRAPHY
+  ========================================================================== */
+
+
+/* TITRES */
+
+h1 {
+  font-family: var(--font-NewEdge);
+  font-weight: 600;
+  font-size: clamp(2.5rem, 5vw, 3rem);
+  line-height: 1.15;
+  color: var(--color-black);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+
+h2 {
+  font-family: var(--font-NewEdge);
+  font-weight: 600;
+  font-size: clamp(2rem, 5vw, 2.5rem);
+  line-height: 1.15;
+  color: var(--color-black);
+  margin: 0;
+
+}
+
+h2.light {
+  font-weight: 400;
+  margin-bottom: var(--space-xl);
+}
+
+/* petit titre des articles */
+h3 {
+  font-family: var(--font-Inter);
+  font-weight: 300;
+  font-size: clamp(1.3rem, 5vw, 1.6rem);
+  line-height: 1.3;
+  color: var(--color-black);
+  margin: 0;
+}
+
+
+h4 {
+  font-family: var(--font-Inter);
+  font-weight: 800;
+  font-size: 1.2rem;
+  line-height: 1.2;
+  color: var(--color-black);
+  margin: 0;
+  text-transform: uppercase;
+}
+
+h5 {
+  font-family: var(--font-NewEdge);
+  font-weight: 600;
+  font-size: 2rem;
+  line-height: 1;
+  color: var(--color-black);
+  margin: 0;
+}
+
+
+/* CORPS DE TEXTE */
+
+
+.body-1 {
+  font-family: var(--font-Inter);
+  font-weight: 200;
+  font-size: 1.2rem;
+  color: var(--color-black);
+}
+
+
+.body-2 {
+  font-family: var(--font-Inter);
+  font-weight: 200;
+  font-size: 1.3rem;
+  color: var(--color-black);
+  margin: 0;
+}
+
+
+p,
+li,
+span {
+  font-family: var(--font-Inter);
+  font-weight: 300;
+  font-size: 1rem;
+  line-height: 1.2;
+  color: var(--color-black);
+  margin: 0;
+}
+
+
+/* Fond */
+.bg-white {
+  background-color: var(--color-white);
+}
+
+
+.bg-pink {
+  background-color: var(--color-pink);
+}
+
+
+
+/* Layout utilitaires */
+.container {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: min(100%, 1600px);
+  /* plus large qu’avant */
+  margin-inline: auto;
+  padding-inline: var(--space-l);
+  /* un peu plus fin */
+  padding-block: var(--space-l);
+}
+
+@media (max-width: 900px) {
+  .container {
+    padding-inline: var(--space-s);
+    padding-block: var(--space-l);
+  }
+}
+
+.section {
+  padding-block: var(--space-xl);
+  padding-inline: var(--space-xl);
+}
+
+@media (max-width: 900px) {
+  .section {
+    padding-inline: var(--space-s);
+    padding-block: var(--space-l);
+  }
+}
+
+/* Border radius */
+.rounded-s {
+  border-radius: var(--radius-s);
+}
+
+
+.rounded-m {
+  border-radius: var(--radius-m);
+}
+
+
+.rounded-l {
+  border-radius: var(--radius-l);
+}
+
+
+.rounded-full {
+  border-radius: var(--radius-full);
+}
+
+
+/* Espacement rapide */
+.mt-0 {
+  margin-top: 0 !important;
+}
+
+
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+
+
+.mt-s {
+  margin-top: var(--space-s);
+}
+
+
+.mb-s {
+  margin-bottom: var(--space-s);
+}
+
+
+.pt-l {
+  padding-top: var(--space-l);
+}
+
+
+.pb-l {
+  padding-bottom: var(--space-l);
+}
+
+
+/* Alignements */
+.text-center {
+  text-align: center;
+}
+
+
+.text-left {
+  text-align: left;
+}
+
+
+/* Couleurs texte */
+.text-black {
+  color: var(--color-black);
+}
+
+
+.text-white {
+  color: var(--color-white);
+}
+
+
+.text-pink {
+  color: var(--color-pink);
+}
+
+
+/* Fond */
+.bg-white {
+  background-color: var(--color-white);
+}
+
+
+.bg-pink {
+  background-color: var(--color-pink);
+}
+
+
+
+
+/* images */
+
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+  object-fit: cover;
+
+  .v-style-block.is-fill {
+
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  // arrondi par défaut
+  border-radius: var(--radius-s);
+
+
+  // sauf si la classe 'no-radius' est présente
+  &.no-radius {
+    border-radius: 0;
+  }
+}
+
+.img-full {
+  display: block;
+  width: 100%;
+  height: 80vh;
+  object-fit: cover;
+  border-radius: var(--radius-l);
+}
+
+/* Flex helpers */
+.flex {
+  display: flex;
+  gap: var(--space-m);
+}
+
+
+.flex-center {
+  justify-content: center;
+  align-items: center;
+}
+
+
+.flex-between {
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.article-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  padding-top: var(--space-l);
+}
+
+.two-cols {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: var(--space-xxl);
+
+  .col {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+
+    /* par défaut (mobile), autoriser à rétrécir */
+    min-width: 0;
+  }
+
+  .col-inner {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    /* permet au contenu flex de ne pas déborder */
+    min-width: 0;
+  }
+}
+
+@media (max-width: 1200px) {
+  .two-cols {
+    flex-direction: column;
+    /* empile */
+    gap: var(--space-s);
+    /* gap plus petit */
+
+    .col {
+      width: 100%;
+      justify-content: flex-start;
+      min-width: 0;
+      /* évite le débordement */
+    }
+
+    .col-inner {
+      max-width: 100%;
+    }
+  }
+}
+
+/* DESKTOP : force une largeur mini */
+@media (min-width: 901px) {
+  .two-cols .col {
+    min-width: 400px;
+    /* appliqué uniquement en desktop */
+  }
+}
+
+/* Taille texte */
+.text-xs {
+  font-size: 0.75rem;
+}
+
+
+.text-sm {
+  font-size: 0.875rem;
+}
+
+
+.text-base {
+  font-size: 1rem;
+}
+
+
+.text-lg {
+  font-size: 1.25rem;
+}
