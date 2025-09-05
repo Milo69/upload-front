@@ -2,48 +2,56 @@
   <main class="v-infos">
     <template v-if="data && data.status === 'ok'">
       
-      <h1>{{ data.result?.title || 'Infos Pratiques' }}</h1>
+      <h2>{{ data.result?.title || 'Infos Pratiques' }}</h2>
       
       <!-- Horaires -->
       <section v-if="data.result?.horaires">
-        <h2>Horaires d'ouverture</h2>
+        <h3>Horaires d'ouverture</h3>
         <div v-html="data.result.horaires"></div>
       </section>
 
       <!-- Lieux de la biennale -->
       <section v-if="data.result?.lieu_biennale?.length">
-        <h2>Lieux de la biennale</h2>
-        <div v-for="lieu in data.result.lieu_biennale" :key="lieu.nom">
-          <h3>{{ lieu.nom }}</h3>
-          <p>{{ lieu.adresse }}</p>
-          <a v-if="lieu.maps" :href="lieu.maps" target="_blank">📍 Voir sur Google Maps</a>
+        <h3>Lieux de la biennale</h3>
+        <div v-for="lieu in data.result.lieu_biennale" :key="lieu.nom" class="lieu-item">
+          <p class="lieu-nom">{{ lieu.nom }}</p>
+          <p class="lieu-adresse">
+            <a v-if="lieu.maps" :href="lieu.maps" target="_blank" class="address-link">
+              {{ lieu.adresse }}
+            </a>
+            <span v-else>{{ lieu.adresse }}</span>
+          </p>
         </div>
       </section>
 
       <!-- Autres lieux -->
       <section v-if="data.result?.autres_lieux?.length">
-        <h2>Autres lieux</h2>
-        <div v-for="lieu in data.result.autres_lieux" :key="lieu.nom">
-          <h3>{{ lieu.nom }}</h3>
-          <p>{{ lieu.adresse }}</p>
-          <a v-if="lieu.maps" :href="lieu.maps" target="_blank">📍 Voir sur Google Maps</a>
+        <h3>Autres lieux</h3>
+        <div v-for="lieu in data.result.autres_lieux" :key="lieu.nom" class="lieu-item">
+          <p class="lieu-nom">{{ lieu.nom }}</p>
+          <p class="lieu-adresse">
+            <a v-if="lieu.maps" :href="lieu.maps" target="_blank" class="address-link">
+              {{ lieu.adresse }}
+            </a>
+            <span v-else>{{ lieu.adresse }}</span>
+          </p>
         </div>
       </section>
 
       <!-- Accessibilité -->
       <section v-if="data.result?.accessibilite">
-        <h2>Accessibilité</h2>
+        <h3>Accessibilité</h3>
         <div v-html="data.result.accessibilite"></div>
       </section>
 
       <!-- Contact -->
       <section v-if="data.result?.contact_email || data.result?.instagram_label">
-        <h2>Contact</h2>
+        <h3>Contact</h3>
         <p v-if="data.result.contact_email">
-          Email : <a :href="'mailto:' + data.result.contact_email">{{ data.result.contact_email }}</a>
+         <a :href="'mailto:' + data.result.contact_email">{{ data.result.contact_email }}</a>
         </p>
         <p v-if="data.result.instagram_label && data.result.instagram_url">
-          Instagram : <a :href="data.result.instagram_url" target="_blank">{{ data.result.instagram_label }}</a>
+        <a :href="data.result.instagram_url" target="_blank">{{ data.result.instagram_label }}</a>
         </p>
       </section>
 
@@ -97,4 +105,76 @@ const { data, status } = await useFetch<CMSFetchData<InfosPratiquesData>>('/api/
 </script>
 
 <style lang="scss" scoped>
+.v-infos {
+  padding: var(--space-xl) 2rem;
+
+  @media (max-width: 768px) {
+    padding: var(--space-xl) 1rem;
+  }
+}
+
+h2 {
+  margin-bottom: var(--space-l);
+}
+
+section {
+  margin-bottom: var(--space-xl);
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+  
+  h3 {
+    margin-bottom: var(--space-s);
+  }
+  
+  div {
+    :deep(p) {
+      margin-bottom: var(--space-m);
+      
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
+
+.lieu-item {
+  margin-bottom: var(--space-xl);
+  
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.lieu-nom {
+  margin-bottom: var(--space-xs) !important;
+}
+
+.lieu-adresse {
+  margin-bottom: var(--space-s) !important;
+}
+
+.address-link {
+  text-decoration: none !important;
+  color: inherit;
+  
+  &:hover {
+    text-decoration: underline !important;
+  }
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.error, .loading {
+  text-align: center;
+  padding: var(--space-xl);
+}
 </style>

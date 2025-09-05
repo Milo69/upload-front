@@ -2,18 +2,24 @@
   <main class="v-exposant-detail">
     <template v-if="data && data.status === 'ok' && exposant">
       
-      <!-- Images -->
-      <AppExposantImages 
-        :images="exposant.info_image || []" 
-        :exposant-name="exposant.title" 
-      />
-      
-      <!-- Détails du participant -->
-      <AppExposantDetail :exposant="exposant" />
-      
-      <!-- Bouton retour -->
-      <div class="footer">
-        <NuxtLink to="/exposants">← Retour aux exposants</NuxtLink>
+      <div class="exposant-layout">
+        <!-- Colonne de gauche : Détails du participant -->
+        <div class="exposant-text-column">
+          <AppExposantDetail :exposant="exposant" />
+          
+          <!-- Bouton retour -->
+          <div class="footer">
+            <NuxtLink to="/exposants">← Retour aux exposants</NuxtLink>
+          </div>
+        </div>
+        
+        <!-- Colonne de droite : Images -->
+        <div class="exposant-image-column">
+          <AppExposantImages 
+            :images="exposant.info_image || []" 
+            :exposant-name="exposant.title" 
+          />
+        </div>
       </div>
 
     </template>
@@ -70,4 +76,55 @@ const exposant = computed(() => data.value?.result ?? null)
 </script>
 
 <style lang="scss" scoped>
+.v-exposant-detail {
+  padding: var(--space-xl) 2rem;
+
+  @media (max-width: 768px) {
+    padding: var(--space-xl) 1rem;
+  }
+}
+
+.exposant-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xxl);
+  max-width: 1600px;
+  margin: 0 auto;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+}
+
+.exposant-text-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.exposant-image-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer {
+  margin-top: var(--space-xl);
+  padding-top: var(--space-l);
+  border-top: 1px solid var(--color-black);
+  
+  a {
+    color: var(--color-black);
+    text-decoration: none;
+    font-weight: bold;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.error, .loading {
+  text-align: center;
+  padding: var(--space-xl);
+}
 </style>

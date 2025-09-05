@@ -1,15 +1,15 @@
 <template>
   <main class="v-home">
+    <!-- Hero avec animation p5 -->
+    <AppHero />
+    
     <template v-if="data && data.status === 'ok'">
-      <!-- Page Home depuis CMS -->
-      <section v-if="data.result?.title" class="hero">
-        <h1>{{ data.result.title }}</h1>
-        <div v-if="data.result.intro" v-html="data.result.intro" class="intro"></div>
-      </section>
+      <!-- Ligne de séparation -->
+      <div class="section-separator"></div>
 
       <!-- Section exposants -->
-      <section v-if="exposantsData && exposantsData.status === 'ok' && exposantsData.result?.length" class="exposants-section">
-        <h2>Exposants</h2>
+      <section v-if="exposantsData && exposantsData.status === 'ok' && exposantsData.result?.length" class="section">
+        <h2 class="section-title">Exposants</h2>
         <AppExposantsList :exposants="exposantsData.result" />
       </section>
 
@@ -67,6 +67,5 @@ const { data: exposantsData } = await useFetch<CMSListData<ExposantData>>('/api/
 </script>
 
 <style lang="scss" scoped>
-.v-home {
-}
+/* Styles spécifiques à la page d'accueil si nécessaire */
 </style>

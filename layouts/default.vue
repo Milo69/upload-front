@@ -7,7 +7,6 @@
     </main>
 
     <footer class="app-footer">
-      <p>&copy; 2025 - Site événement</p>
     </footer>
   </div>
 </template>

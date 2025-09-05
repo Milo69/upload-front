@@ -1,5 +1,5 @@
 <template>
-  <div class="exposants-list">
+  <div class="grid-responsive">
     <AppExposantCard
       v-for="exposant in exposants"
       :key="exposant.slug"
@@ -19,9 +19,5 @@ const props = defineProps<Props>()
 </script>
 
 <style lang="scss" scoped>
-.exposants-list {
-  display: grid;
-  gap: 2rem;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-}
+/* Le styling de la grille est maintenant géré par la classe utilitaire .grid-responsive dans _main.scss */
 </style>

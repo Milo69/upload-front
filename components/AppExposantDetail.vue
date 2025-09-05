@@ -14,7 +14,7 @@
     <!-- Description technique -->
     <div v-if="exposant.content_descriptif" class="exposant-descriptif">
       <h3>DESCRIPTIF</h3>
-      <div v-html="exposant.content_descriptif"></div>
+      <div v-html="exposant.content_descriptif" class="descriptif-content"></div>
     </div>
     
     <!-- Boutons d'action -->
@@ -80,4 +80,63 @@ const openInstagram = () => {
 </script>
 
 <style lang="scss" scoped>
+.exposant-detail {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.exposant-name {
+  margin-bottom: var(--space-l);
+}
+
+.exposant-subtitle {
+  margin-bottom: var(--space-xl);
+}
+
+.exposant-content {
+  margin-bottom: var(--space-xl);
+}
+
+.exposant-descriptif {
+  margin-bottom: var(--space-xl);
+  
+  h3 {
+    margin-bottom: var(--space-m);
+  }
+  
+  .descriptif-label {
+    margin-bottom: var(--space-s);
+  }
+}
+
+.action-buttons {
+  margin-top: var(--space-xl);
+  display: flex;
+  gap: var(--space-m);
+  flex-wrap: wrap;
+}
+
+/* Espacement des paragraphes dans le contenu */
+.exposant-content {
+  :deep(p) {
+    margin-bottom: var(--space-m);
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.descriptif-content {
+  :deep(p) {
+    font-size: 0.8rem;
+    font-weight: 400;
+    margin-bottom: var(--space-m);
+    
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
 </style>

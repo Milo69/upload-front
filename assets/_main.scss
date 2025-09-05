@@ -1,6 +1,3 @@
-@use "font-import";
-
-
 /* ==========================================================================
   LES VARIABLES
   ========================================================================== */
@@ -13,12 +10,11 @@
   // les couleurs //
   --color-black: #000000;
   --color-white: #ffffff;
-  --color-pink: #F94BE4;
+  --color-gray: #D0D0D0;
 
 
   // les typos //
-  --font-NewEdge: 'NewEdge', sans-serif;
-  --font-Inter: 'InterDisplay', sans-serif;
+  --font-Helvetica: 'Helvetica', Arial, sans-serif;
 
 
   // Tailles d'espacement
@@ -50,13 +46,12 @@
 
 
 html {
-  font-family: var(--font-Inter);
-  font-optical-sizing: auto;
+  font-family: var(--font-Helvetica);
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 20px;
-  font-weight: 500;
+  font-weight: 400;
   scroll-behavior: smooth;
 }
 
@@ -65,7 +60,7 @@ body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
-  background-color: var(--color-pink);
+  background-color: var(--color-gray);
 }
 
 
@@ -75,27 +70,6 @@ a {
 }
 
 
-
-
-/* ==========================================================================
-  @font-face IMPORTS — pour NewEdge
-  ========================================================================== */
-
-
-@font-face {
-  font-family: var(--font-NewEdge);
-  src: url('/fonts/NewEdge666Test-RegularRounded.otf') format('opentype');
-  font-weight: 400;
-  font-style: normal;
-}
-
-
-@font-face {
-  font-family: var(--font-NewEdge);
-  src: url('/fonts/NewEdge666Test-SemiboldRounded.otf') format('opentype');
-  font-weight: 600;
-  font-style: normal;
-}
 
 
 
@@ -108,24 +82,22 @@ a {
 /* TITRES */
 
 h1 {
-  font-family: var(--font-NewEdge);
-  font-weight: 600;
+  font-family: var(--font-Helvetica);
+  font-weight: bold;
   font-size: clamp(2.5rem, 5vw, 3rem);
   line-height: 1.15;
   color: var(--color-black);
-  text-transform: uppercase;
   margin: 0;
 }
 
 
 h2 {
-  font-family: var(--font-NewEdge);
-  font-weight: 600;
+  font-family: var(--font-Helvetica);
+  font-weight: bold;
   font-size: clamp(2rem, 5vw, 2.5rem);
   line-height: 1.15;
   color: var(--color-black);
   margin: 0;
-
 }
 
 h2.light {
@@ -135,28 +107,26 @@ h2.light {
 
 /* petit titre des articles */
 h3 {
-  font-family: var(--font-Inter);
-  font-weight: 300;
-  font-size: clamp(1.3rem, 5vw, 1.6rem);
-  line-height: 1.3;
-  color: var(--color-black);
-  margin: 0;
-}
-
-
-h4 {
-  font-family: var(--font-Inter);
-  font-weight: 800;
-  font-size: 1.2rem;
+  font-family: var(--font-Helvetica);
+  font-weight: bold;
+  font-size: 1rem;
   line-height: 1.2;
   color: var(--color-black);
   margin: 0;
-  text-transform: uppercase;
+}
+
+h4 {
+  font-family: var(--font-Helvetica);
+  font-weight: bold;
+  font-size: 0.7rem;
+  line-height: 1.2;
+  color: var(--color-black);
+  margin: 0;
 }
 
 h5 {
-  font-family: var(--font-NewEdge);
-  font-weight: 600;
+  font-family: var(--font-Helvetica);
+  font-weight: bold;
   font-size: 2rem;
   line-height: 1;
   color: var(--color-black);
@@ -168,27 +138,25 @@ h5 {
 
 
 .body-1 {
-  font-family: var(--font-Inter);
-  font-weight: 200;
+  font-family: var(--font-Helvetica);
+  font-weight: 400;
   font-size: 1.2rem;
   color: var(--color-black);
 }
 
-
 .body-2 {
-  font-family: var(--font-Inter);
-  font-weight: 200;
+  font-family: var(--font-Helvetica);
+  font-weight: 400;
   font-size: 1.3rem;
   color: var(--color-black);
   margin: 0;
 }
 
-
 p,
 li,
 span {
-  font-family: var(--font-Inter);
-  font-weight: 300;
+  font-family: var(--font-Helvetica);
+  font-weight: 400;
   font-size: 1rem;
   line-height: 1.2;
   color: var(--color-black);
@@ -202,8 +170,8 @@ span {
 }
 
 
-.bg-pink {
-  background-color: var(--color-pink);
+.bg-gray {
+  background-color: var(--color-gray);
 }
 
 
@@ -213,7 +181,7 @@ span {
   box-sizing: border-box;
   width: 100%;
   max-width: min(100%, 1600px);
-  /* plus large qu’avant */
+  /* plus large qu'avant */
   margin-inline: auto;
   padding-inline: var(--space-l);
   /* un peu plus fin */
@@ -313,8 +281,8 @@ span {
 }
 
 
-.text-pink {
-  color: var(--color-pink);
+.text-gray {
+  color: var(--color-gray);
 }
 
 
@@ -324,8 +292,8 @@ span {
 }
 
 
-.bg-pink {
-  background-color: var(--color-pink);
+.bg-gray {
+  background-color: var(--color-gray);
 }
 
 
@@ -341,29 +309,11 @@ img {
   object-fit: cover;
 
   .v-style-block.is-fill {
-
     padding: 0;
     display: flex;
     justify-content: center;
     align-items: center;
   }
-
-  // arrondi par défaut
-  border-radius: var(--radius-s);
-
-
-  // sauf si la classe 'no-radius' est présente
-  &.no-radius {
-    border-radius: 0;
-  }
-}
-
-.img-full {
-  display: block;
-  width: 100%;
-  height: 80vh;
-  object-fit: cover;
-  border-radius: var(--radius-l);
 }
 
 /* Flex helpers */
@@ -389,6 +339,57 @@ img {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   padding-top: var(--space-l);
+}
+
+/* Grille responsive pour exposants et autres éléments */
+.grid-responsive {
+  display: grid;
+  gap: 0.5rem;
+  /* Marge plus fine entre les images */
+
+  /* Mobile: 1 colonne */
+  grid-template-columns: 1fr;
+
+  /* Petit tablet: 2 colonnes */
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  /* Tablet: 3 colonnes */
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  /* Desktop: 6 colonnes */
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+/* Séparateur de section */
+.section-separator {
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-black);
+  margin: 0;
+}
+
+/* Sections standardisées */
+.section {
+  margin-top: var(--space-xl);
+  padding-left: 2rem;
+  padding-right: 2rem;
+
+  @media (max-width: 768px) {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
+/* Titres de section standardisés */
+.section-title {
+  margin-bottom: var(--space-l);
+  /* Marge en dessous du titre */
 }
 
 .two-cols {

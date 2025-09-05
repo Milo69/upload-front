@@ -33,14 +33,15 @@ const handleClick = (event: MouseEvent) => {
 <style lang="scss" scoped>
 .app-button {
   display: inline-block;
-  padding: 12px 24px;
+  padding: 5px 10px;
   background-color: white;
   color: black;
-  border: 1px solid black;
+  border: 2px solid black;
   cursor: pointer;
   transition: all 0.2s ease;
   font-family: inherit;
   font-size: inherit;
+  font-weight: bold;
   text-decoration: none;
 
   &:hover,

@@ -2,6 +2,9 @@
 export default defineNuxtConfig({
   ssr: false,
   devServer: { port: 3001 },
+  css: [
+    '~/assets/_main.scss'
+  ],
   nitro: {
     devProxy: {
       '/kql/': {
