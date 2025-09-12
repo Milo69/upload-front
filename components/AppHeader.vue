@@ -91,10 +91,12 @@ const updateActiveStates = () => {
       distortNav(index, true)
     } else {
       // Lien inactif : remettre normal
-      navChars[index].forEach((char) => {
-        char.style.transform = 'translateY(0px) rotate(0deg)'
-        char.style.transition = 'transform 0.3s ease'
-      })
+      if (navChars[index]) {
+        navChars[index].forEach((char) => {
+          char.style.transform = 'translateY(0px) rotate(0deg)'
+          char.style.transition = 'transform 0.3s ease'
+        })
+      }
     }
   })
 }

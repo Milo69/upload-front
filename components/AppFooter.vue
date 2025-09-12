@@ -349,6 +349,8 @@ const getSocialIcon = (social: any) => {
 
 @media (max-width: 768px) {
   .footer {
+    margin-top: 3rem;
+    
     &__partner-logo {
       max-height: 55px;
       max-width: 80px;

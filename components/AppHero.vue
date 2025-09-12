@@ -136,15 +136,22 @@ onMounted(async () => {
       canvasHeight = rect.height || 600
 
       if (isTouchDevice()) {
-        scaleFactor = canvasHeight / 500
+        scaleFactor = canvasHeight / 400  // Réduit de 500 à 400 pour agrandir les blocs
       } else {
         scaleFactor = canvasWidth / 500
       }
 
       scaledLetterSpacing = baseLetterSpacing * scaleFactor
-      baseLetterSize = 30 * scaleFactor
-      baseCaseWidth = 28 * scaleFactor
-      baseCaseHeight = 35 * scaleFactor
+      // Augmenter encore plus la taille sur mobile
+      if (isTouchDevice()) {
+        baseLetterSize = 35 * scaleFactor  // Augmenté de 30 à 35
+        baseCaseWidth = 32 * scaleFactor   // Augmenté de 28 à 32
+        baseCaseHeight = 40 * scaleFactor  // Augmenté de 35 à 40
+      } else {
+        baseLetterSize = 30 * scaleFactor
+        baseCaseWidth = 28 * scaleFactor
+        baseCaseHeight = 35 * scaleFactor
+      }
     }
 
     p.windowResized = () => {
