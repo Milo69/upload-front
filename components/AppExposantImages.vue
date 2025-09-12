@@ -29,4 +29,34 @@ const props = defineProps<Props>()
 </script>
 
 <style lang="scss" scoped>
+.exposant-images {
+  width: 100%;
+}
+
+.images-gallery {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xxl);
+}
+
+.exposant-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+  
+  // Ombre portée franche vers la gauche en bas en diagonal
+  box-shadow: -25px 25px 0px 0px var(--color-black);
+}
+
+@media (max-width: 1024px) {
+  .images-gallery {
+    gap: var(--space-xl);
+  }
+  
+  .exposant-image {
+    // Ombre portée plus grande sur mobile
+    box-shadow: -10px 10px 0px 0px var(--color-black);
+  }
+}
 </style>

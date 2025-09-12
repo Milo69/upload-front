@@ -49,7 +49,7 @@ let wallDamping = 0.85
 // Comportement souris
 let lastMouseMoveTime = 0
 let isMouseOutside = false
-let idleDelay = 3000
+let idleDelay = 1000
 
 onMounted(async () => {
   await nextTick()

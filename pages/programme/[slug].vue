@@ -2,36 +2,24 @@
   <main class="v-event-detail">
     <template v-if="data && data.status === 'ok' && evenement">
       
-      <!-- Titre principal -->
-      <h1>{{ evenement.title }}</h1>
-      
-      <!-- Date et heure -->
-      <div v-if="evenement.date || evenement.time" class="event-datetime">
-        <p v-if="evenement.date">📅 <strong>Date :</strong> {{ evenement.date }}</p>
-        <p v-if="evenement.time">🕐 <strong>Heure :</strong> {{ evenement.time }}</p>
-      </div>
-      
-      <!-- Lieu -->
-      <div v-if="evenement.address" class="event-location">
-        <p>📍 <strong>Lieu :</strong> {{ evenement.address }}</p>
-        <a v-if="evenement.googlemaps" :href="evenement.googlemaps" target="_blank">🗺️ Voir sur Google Maps</a>
-      </div>
-      
-      <!-- Description -->
-      <div v-if="evenement.description" class="event-description">
-        <h2>Description</h2>
-        <div v-html="evenement.description"></div>
-      </div>
-      
-      <!-- Conditions -->
-      <div v-if="evenement.conditions" class="event-conditions">
-        <h2>Conditions</h2>
-        <p>{{ evenement.conditions }}</p>
-      </div>
-      
-      <!-- Bouton retour -->
-      <div class="footer">
-        <NuxtLink to="/programme">← Retour au programme</NuxtLink>
+      <div class="event-layout">
+        <!-- Colonne de gauche : Détails de l'événement -->
+        <div class="event-text-column">
+          <AppEventDetail :event="evenement" />
+          
+          <!-- Bouton retour -->
+          <div class="footer">
+            <NuxtLink to="/programme">← Retour au programme</NuxtLink>
+          </div>
+        </div>
+        
+        <!-- Colonne de droite : Image -->
+        <div class="event-image-column">
+          <AppEventImage 
+            :image="evenement.image" 
+            :event-name="evenement.title" 
+          />
+        </div>
       </div>
 
     </template>
@@ -68,7 +56,21 @@ const { data, status, error } = await useFetch<CMSFetchData<EventData>>('/api/CM
       address: true,
       googlemaps: true,
       description: true,
-      conditions: true
+      conditions: true,
+      event_type: true,
+      image: true,
+      // Champs spécifiques aux ateliers
+      atelier_min_age: true,
+      atelier_instructor: true,
+      atelier_capacity: true,
+      // Champs spécifiques aux conférences
+      speakers: true,
+      // Champs spécifiques aux visites
+      meeting_point: true,
+      guide_name: true,
+      // Réservation
+      reservation_enabled: true,
+      reservation_url: true
     }
   }
 })
@@ -87,4 +89,55 @@ watchEffect(() => {
 </script>
 
 <style lang="scss" scoped>
+.v-event-detail {
+  padding: var(--space-xl) 2rem;
+
+  @media (max-width: 768px) {
+    padding: var(--space-xl) 1rem;
+  }
+}
+
+.event-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xxl);
+  max-width: 1600px;
+  margin: 0 auto;
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr;
+    gap: var(--space-xl);
+  }
+}
+
+.event-text-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.event-image-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer {
+  margin-top: var(--space-xl);
+  padding-top: var(--space-l);
+  border-top: 1px solid var(--color-black);
+  
+  a {
+    color: var(--color-black);
+    text-decoration: none;
+    font-weight: bold;
+    
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.error, .loading {
+  text-align: center;
+  padding: var(--space-xl);
+}
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <main class="v-exposant-detail">
+  <main class="v-exposant-detail section">
     <template v-if="data && data.status === 'ok' && exposant">
       
       <div class="exposant-layout">
@@ -7,10 +7,6 @@
         <div class="exposant-text-column">
           <AppExposantDetail :exposant="exposant" />
           
-          <!-- Bouton retour -->
-          <div class="footer">
-            <NuxtLink to="/exposants">← Retour aux exposants</NuxtLink>
-          </div>
         </div>
         
         <!-- Colonne de droite : Images -->
@@ -20,6 +16,12 @@
             :exposant-name="exposant.title" 
           />
         </div>
+      </div>
+      
+      <!-- Liste des exposants en bas -->
+      <div class="autres-exposants" v-if="allExposants?.length">
+        <h2>Exposants</h2>
+        <AppExposantsList :exposants="allExposants" />
       </div>
 
     </template>
@@ -39,11 +41,11 @@
 </template>
 
 <script setup lang="ts">
-import type { ExposantData, CMSFetchData } from '~/composables/cms_api'
+import type { ExposantData, CMSFetchData, CMSListData } from '~/composables/cms_api'
 const route = useRoute()
 const slug = computed(() => route.params.slug as string)
 
-
+// Récupérer l'exposant individuel
 const { data, status } = await useFetch<CMSFetchData<ExposantData>>('/api/CMS_KQLRequest', {
   lazy: true,
   method: 'POST',
@@ -55,6 +57,7 @@ const { data, status } = await useFetch<CMSFetchData<ExposantData>>('/api/CMS_KQ
       content_subtitle: true,
       content_body: true,
       content_descriptif: true,
+      info_category: true,
       info_bio_studio: true,
       info_link_website: true,
       info_link_social: true,
@@ -71,25 +74,58 @@ const { data, status } = await useFetch<CMSFetchData<ExposantData>>('/api/CMS_KQ
   }
 })
 
+// Récupérer tous les exposants pour la liste
+const { data: allExposantsData } = await useFetch<CMSListData<ExposantData>>('/api/CMS_KQLRequest', {
+  lazy: true,
+  method: 'POST',
+  body: {
+    query: "site.find('exposants').children()",
+    select: {
+      title: true,
+      slug: true,
+      content_subtitle: true,
+      info_category: true,
+      info_image: {
+        query: 'page.info_image.toFiles',
+        select: {
+          url: true,
+          alt: true,
+          width: true,
+          height: true
+        }
+      }
+    }
+  }
+})
+
+// Fonction pour mélanger un array de manière aléatoire
+const shuffleArray = <T>(array: T[]): T[] => {
+  const shuffled = [...array]
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1))
+    const temp = shuffled[i]!
+    shuffled[i] = shuffled[j]!
+    shuffled[j] = temp
+  }
+  return shuffled
+}
+
 const exposant = computed(() => data.value?.result ?? null)
+const allExposants = computed(() => {
+  const exposants = allExposantsData.value?.result || []
+  // Exclure l'exposant actuel de la liste et mélanger aléatoirement
+  const autresExposants = exposants.filter(exp => exp.slug !== slug.value)
+  return shuffleArray(autresExposants)
+})
 
 </script>
 
 <style lang="scss" scoped>
-.v-exposant-detail {
-  padding: var(--space-xl) 2rem;
-
-  @media (max-width: 768px) {
-    padding: var(--space-xl) 1rem;
-  }
-}
 
 .exposant-layout {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: var(--space-xxl);
-  max-width: 1600px;
-  margin: 0 auto;
 
   @media (max-width: 1024px) {
     grid-template-columns: 1fr;
@@ -126,5 +162,14 @@ const exposant = computed(() => data.value?.result ?? null)
 .error, .loading {
   text-align: center;
   padding: var(--space-xl);
+}
+
+.autres-exposants {
+  margin-top: var(--space-xxl);
+  border-top: 1px solid var(--color-black);
+  
+  h2 {
+    margin-bottom: var(--space-xl);
+  }
 }
 </style>

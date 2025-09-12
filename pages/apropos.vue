@@ -2,7 +2,7 @@
   <main class="v-apropos">
     <template v-if="data && data.status === 'ok'">
       
-      <div class="apropos-layout">
+      <section class="section">
         <!-- Section Biennale -->
         <div class="biennale-section">
           <!-- Colonne gauche : Contenu biennale -->
@@ -63,7 +63,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </section>
 
     </template>
 
@@ -110,18 +110,9 @@ const { data, status } = await useFetch<CMSFetchData<AproposData>>('/api/CMS_KQL
 </script>
 
 <style lang="scss" scoped>
-.v-apropos {
-  padding: var(--space-xl) 2rem;
+/* .v-apropos - pas de styles nécessaires, utilise .section et .container */
 
-  @media (max-width: 768px) {
-    padding: var(--space-xl) 1rem;
-  }
-}
-
-.apropos-layout {
-  max-width: 1600px;
-  margin: 0 auto;
-}
+/* Utilise la classe .container globale au lieu de .apropos-layout */
 
 .biennale-section,
 .partners-section {

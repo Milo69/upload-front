@@ -16,10 +16,15 @@
         <!-- Overlay avec texte au hover -->
         <div class="hover-overlay">
           <div class="overlay-content">
-            <h2 class="overlay-title">{{ exposant.title }}</h2>
-            <h2 v-if="exposant.content_subtitle" class="overlay-subtitle">
-              {{ exposant.content_subtitle }}
-            </h2>
+            <div class="overlay-top">
+              <h2 class="overlay-title">{{ exposant.title }}</h2>
+              <h2 v-if="exposant.content_subtitle" class="overlay-subtitle">
+                {{ exposant.content_subtitle }}
+              </h2>
+            </div>
+            <div v-if="exposant.info_category" class="overlay-category">
+              {{ getCategoryLabel(exposant.info_category) }}
+            </div>
           </div>
         </div>
       </div>
@@ -35,6 +40,18 @@ interface Props {
 }
 
 const props = defineProps<Props>()
+
+const getCategoryLabel = (category: string) => {
+  const labels: Record<string, string> = {
+    signaletique: 'Signalétique & Scénographie',
+    transversaux: 'Projets transversaux',
+    branding: 'Branding',
+    police: 'Dessin de police caractères',
+    edition: 'Édition',
+    identite: 'Identité culturelle'
+  }
+  return labels[category] || category
+}
 </script>
 
 <style lang="scss" scoped>
@@ -100,9 +117,17 @@ const props = defineProps<Props>()
 }
 
 .overlay-content {
-  text-align: center;
+  text-align: left;
   color: white;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.overlay-top {
+  flex-grow: 1;
 }
 
 .overlay-title {
@@ -116,10 +141,19 @@ const props = defineProps<Props>()
 .overlay-subtitle {
    font-size: 1.2rem;
   font-weight: bold; /* Style h2 du système */
+  font-style: italic;
   line-height: 1.15;
   margin: 0;
   color: white;
   opacity: 0.9;
+}
+
+.overlay-category {
+  font-size: 1.2rem;
+  font-weight: normal;
+  color: white;
+  opacity: 0.8;
+  margin-top: auto;
 }
 
 /* Effet hover */

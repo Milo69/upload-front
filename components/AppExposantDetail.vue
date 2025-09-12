@@ -8,6 +8,11 @@
       {{ exposant.content_subtitle }}
     </h2>
     
+    <!-- Catégorie -->
+    <h3 v-if="exposant.info_category" class="exposant-category">
+      {{ getCategoryLabel(exposant.info_category) }}
+    </h3>
+    
     <!-- Contenu principal -->
     <div v-if="exposant.content_body" class="exposant-content" v-html="exposant.content_body"></div>
     
@@ -77,6 +82,18 @@ const openInstagram = () => {
     window.open(props.exposant.info_link_social, '_blank')
   }
 }
+
+const getCategoryLabel = (category: string) => {
+  const labels: Record<string, string> = {
+    signaletique: 'Signalétique & Scénographie',
+    transversaux: 'Projets transversaux',
+    branding: 'Branding',
+    police: 'Dessin de police caractères',
+    edition: 'Édition',
+    identite: 'Identité culturelle'
+  }
+  return labels[category] || category
+}
 </script>
 
 <style lang="scss" scoped>
@@ -87,11 +104,17 @@ const openInstagram = () => {
 }
 
 .exposant-name {
-  margin-bottom: var(--space-l);
+  margin-bottom: var(--space-s);
 }
 
 .exposant-subtitle {
+  margin-bottom: var(--space-s);
+  font-style: italic;
+}
+
+.exposant-category {
   margin-bottom: var(--space-xl);
+  font-weight: normal;
 }
 
 .exposant-content {

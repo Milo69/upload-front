@@ -54,18 +54,24 @@ onMounted(() => {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: transparent;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 1000;
+  z-index: 9999;
   padding: var(--space-l);
+  
+  @media (max-width: 768px) {
+    padding: 1rem;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
 }
 
 .bio-modal-content {
   background-color: var(--color-white);
   border: 5px solid var(--color-black);
-  max-width: 500px;
+  max-width: 700px;
   width: 100%;
   max-height: 75vh;
   position: relative;
@@ -73,15 +79,45 @@ onMounted(() => {
   flex-direction: column;
   overflow-y: auto;
   
+  /* Rectangle blanc en haut avec dégradé - fixé au haut du bloc */
+  &::before {
+    content: '';
+    position: sticky;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2rem;
+    background: linear-gradient(to bottom, white 0%, white 50%, rgba(255, 255, 255, 0) 100%);
+    z-index: 3;
+    flex-shrink: 0;
+  }
+  
+  /* Rectangle blanc en bas avec dégradé - fixé au bas du bloc */
+  &::after {
+    content: '';
+    position: sticky;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2rem;
+    background: linear-gradient(to top, white 0%, white 50%, rgba(255, 255, 255, 0) 100%);
+    z-index: 3;
+    flex-shrink: 0;
+    margin-top: auto;
+  }
+  
   @media (max-width: 768px) {
-    max-height: 70vh;
+    max-width: none;
+    width: calc(100vw - 2rem);
+    height: calc(100vh - 2rem);
+    max-height: none;
   }
 }
 
 .close-button {
-  position: sticky;
+  position: absolute;
   top: var(--space-s);
-  align-self: flex-end;
+  right: var(--space-s);
   background: none;
   border: none;
   cursor: pointer;
@@ -89,9 +125,7 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 10;
-  margin-right: var(--space-s);
-  margin-top: var(--space-s);
+  z-index: 4;
 }
 
 .close-icon {
@@ -102,20 +136,17 @@ onMounted(() => {
 }
 
 .bio-text {
-  padding: 0 var(--space-l) var(--space-l) var(--space-l);
-  margin-top: calc(-1 * (var(--space-s) + var(--space-xs) + 3rem));
+  padding: var(--space-xl) var(--space-l) var(--space-l) var(--space-l);
+  position: relative;
+  z-index: 1;
   
   @media (max-width: 768px) {
-    padding: 0 var(--space-m) var(--space-m) var(--space-m);
+    padding: var(--space-xl) var(--space-m) var(--space-m) var(--space-m);
   }
   
   :deep(p) {
     margin-bottom: var(--space-m);
     line-height: 1.4;
-    
-    &:first-child {
-      margin-top: calc(var(--space-s) + var(--space-xs) + var(--space-l));
-    }
     
     &:last-child {
       margin-bottom: 0;
@@ -130,7 +161,7 @@ onMounted(() => {
     margin-top: var(--space-l);
     
     &:first-child {
-      margin-top: calc(var(--space-s) + var(--space-xs) + 3rem + var(--space-xl));
+      margin-top: 0;
     }
   }
 }

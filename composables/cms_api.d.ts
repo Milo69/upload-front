@@ -21,6 +21,7 @@ export type ExposantData = {
   content_subtitle: string
   content_body: string
   content_descriptif: string
+  info_category: string
   info_bio_studio: string
   info_link_website: string
   info_link_social: string
@@ -36,11 +37,34 @@ export type EventData = {
   title: string
   slug: string
   date: string
-  time: string
+  start_time: string
+  end_time?: string
   address: string
   googlemaps: string
   description: string
   conditions: string
+  event_type: 'exposition' | 'conference' | 'atelier' | 'visite'
+  image?: {
+    url: string
+    alt?: string
+    width: number
+    height: number
+    filename: string
+    extension: string
+    mime: string
+  }
+  // Champs spécifiques aux ateliers
+  atelier_min_age?: number
+  atelier_instructor?: string
+  atelier_capacity?: number
+  // Champs spécifiques aux conférences
+  speakers?: string
+  // Champs spécifiques aux visites
+  meeting_point?: string
+  guide_name?: string
+  // Réservation
+  reservation_enabled?: boolean
+  reservation_url?: string
 }
 
 export type LieuData = {
@@ -71,6 +95,12 @@ export type InfosPratiquesData = {
   contact_email: string
   instagram_label: string
   instagram_url: string
+  partners_logos?: Array<{
+    url: string
+    alt: string
+    width: number
+    height: number
+  }>
 }
 
 // Types génériques pour les réponses
@@ -90,4 +120,26 @@ export type CMSProgrammeData = {
   title: string
   slug: string
   children: EventData[]
+  programme_pdf?: Array<{
+    url: string
+    filename: string
+    description?: string
+  }>
+}
+
+export type SocialNetworkData = {
+  icon: 'facebook' | 'twitter' | 'instagram' | 'linkedin' | 'youtube' | 'tiktok' | 'website'
+  url: string
+}
+
+export type FooterData = {
+  social_networks: SocialNetworkData[]
+  footer_contact: string
+  footer_partner_logos: Array<{
+    url: string
+    alt: string
+    width: number
+    height: number
+  }>
+  footer_credit_design: string
 }
