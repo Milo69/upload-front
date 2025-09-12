@@ -157,6 +157,7 @@ onMounted(() => {
   console.log('Infos data:', infosData.value)
   console.log('Social networks:', socialNetworks.value)
   console.log('Partner logos:', partnerLogos.value)
+  console.log('Partner logos count:', partnerLogos.value?.length)
 })
 
 const getSocialIcon = (social: any) => {
@@ -191,12 +192,13 @@ const getSocialIcon = (social: any) => {
     margin: 0 auto;
     padding: 1rem 2rem;
     display: grid;
-    grid-template-columns: minmax(100px, 200px) 1fr minmax(100px, 200px);
-    gap: 2rem;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1rem;
     align-items: center;
   }
 
   &__left-section {
+    grid-column: 1 / 2; // Colonne 1
     justify-self: start;
   }
 
@@ -214,10 +216,12 @@ const getSocialIcon = (social: any) => {
   }
 
   &__partners-section {
+    grid-column: 2 / 5; // Colonnes 2-4 (3 colonnes)
     justify-self: start;
   }
 
   &__credits-section {
+    grid-column: 6 / 7; // Colonne 6
     justify-self: start;
   }
 
@@ -259,14 +263,14 @@ const getSocialIcon = (social: any) => {
   &__partners {
     display: flex;
     flex-wrap: nowrap;
-    gap: 2rem;
+    gap: 3rem;
     align-items: center;
     justify-content: flex-start;
   }
 
   &__partner-logo {
-    max-height: 40px;
-    max-width: 100px;
+    max-height: 50px;
+    max-width: 120px;
     object-fit: contain;
   }
 
@@ -286,16 +290,29 @@ const getSocialIcon = (social: any) => {
 @media (max-width: 1024px) {
   .footer {
     &__content {
-      grid-template-columns: 1fr;
-      grid-template-rows: auto auto auto;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
       gap: 1.5rem;
       padding: 1rem;
     }
 
-    &__left-section,
-    &__partners-section,
-    &__credits-section {
+    &__left-section {
+      grid-column: 1;
+      grid-row: 1;
       justify-self: start;
+    }
+
+    &__credits-section {
+      grid-column: 2;
+      grid-row: 1;
+      justify-self: start;
+    }
+
+    &__partners-section {
+      grid-column: 1 / 3;
+      grid-row: 2;
+      justify-self: stretch;
+      width: 100%;
     }
 
     &__social-contact {
@@ -311,7 +328,21 @@ const getSocialIcon = (social: any) => {
     }
 
     &__partners {
-      justify-content: flex-start;
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 0.5rem;
+      justify-content: space-between;
+      align-items: flex-end;
+      width: 100%;
+      padding: 0;
+    }
+
+    &__partner-logo {
+      flex: 1;
+      width: calc(25% - 0.375rem);
+      max-width: none;
+      max-height: 40px;
+      object-fit: contain;
     }
   }
 }
@@ -319,8 +350,8 @@ const getSocialIcon = (social: any) => {
 @media (max-width: 768px) {
   .footer {
     &__partner-logo {
-      max-height: 35px;
-      max-width: 70px;
+      max-height: 55px;
+      max-width: 80px;
     }
   }
 }

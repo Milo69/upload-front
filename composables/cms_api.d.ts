@@ -135,6 +135,7 @@ export type SocialNetworkData = {
 export type FooterData = {
   social_networks: SocialNetworkData[]
   footer_contact: string
+  footer_address: string
   footer_partner_logos: Array<{
     url: string
     alt: string
@@ -142,4 +143,5 @@ export type FooterData = {
     height: number
   }>
   footer_credit_design: string
+  footer_credit_dev: string
 }
