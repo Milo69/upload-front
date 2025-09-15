@@ -1,5 +1,5 @@
 export default defineEventHandler((event) => {
     return {
-        hello: 'upload biennale second test'
+        hello: 'upload biennale bonjour'
     }
 })
